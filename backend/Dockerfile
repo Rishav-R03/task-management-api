@@ -1,19 +1,18 @@
+# Use a smaller base image
 FROM node:22-alpine
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy only package.json and lock file to install dependencies
+# Copy package.json and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy rest of the files (after installing to cache layers properly)
+# Copy the full source code
 COPY . .
 
-# Expose the backend port
+# Expose the port
 EXPOSE 8000
 
-# Use node instead of nodemon for final container (optional)
+# Default command (override in docker-compose if needed)
 CMD ["npm", "start"]

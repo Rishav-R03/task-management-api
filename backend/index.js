@@ -34,6 +34,6 @@ app.use('/api/v1/getById',getById);
 app.use('/api/v1/updateById',updateByIdRoute); 
 app.use('/api/v1/deleteById',deleteByIdRoute); 
 app.use('/api/v1/logout',logoutRouter);
-app.listen(PORT,()=>{
+app.listen(PORT,'0.0.0.0',()=>{
     console.log(`Server running at http://localhost:8000`)
 })
