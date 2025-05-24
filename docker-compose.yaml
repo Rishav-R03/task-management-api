@@ -1,0 +1,37 @@
+version: '3.8'
+name: mernapp
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # 🛠️ fixed syntax error (extra colon removed)
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mernapp
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app   # 🛠️ fixed path (you wrote ./server which doesn't exist)
+      - /app/node_modules
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    command: npm run dev  # ✅ use this if you want `nodemon` (set it in package.json)
+    networks:
+      - mernapp
+
+volumes:
+  mongo_data:
+
+networks:
+  mernapp:
+    driver: bridge
