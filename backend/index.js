@@ -12,6 +12,8 @@ import updateByIdRoute from './routes/updateById.route.js';
 import deleteByIdRoute from './routes/deleteById.route.js';
 import cookieParser from 'cookie-parser'
 import logoutRouter from './routes/logout.router.js'; 
+import homepageRouter from './routes/homepage.route.js'
+
 // application 
 const app = express()
 // middlewares
@@ -24,9 +26,10 @@ app.use(cookieParser());
 conn();
 //port to host incoming traffic
 const PORT = process.env.PORT; 
+// api end points
 // signup route 
+app.use('/api/v1',homepageRouter);
 app.use('/api/v1/signup',singupRoute);
-// api 
 app.use('/api/v1/addTask',addTaskRoute);
 app.use('/api/v1/login',loginRoute);
 app.use('/api/v1/getAllTodo',getAllRoute);
@@ -34,6 +37,7 @@ app.use('/api/v1/getById',getById);
 app.use('/api/v1/updateById',updateByIdRoute); 
 app.use('/api/v1/deleteById',deleteByIdRoute); 
 app.use('/api/v1/logout',logoutRouter);
+
 app.listen(PORT,'0.0.0.0',()=>{
     console.log(`Server running at http://localhost:8000/api/v1`)
 })
