@@ -1,0 +1,74 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    background-color: #fffdfd;
+    /* position: relative; */
+}
+
+.navbar{
+    width: 100%;
+    background-color: rgb(200, 219, 236);
+    margin: 10px 0px;
+}
+#intro{
+    color: black;
+
+}
+.nav-item{
+    background-color: rgb(164, 222, 133);
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin: 10px 10px;
+}
+#homeMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Or a specific pixel width */
+}
+#homeId{
+    height: 200px;
+    /* width: 50%; */
+    text-align: center;
+    /* display: flex; */
+    /* margin: 20px 20px; */
+    padding: 50px 0px;
+    background-color: rgb(221, 218, 218);
+    /* border: 2px solid red; */
+}
+#homeId p{
+    background-color: rgb(221, 218, 218);
+}
+#homeId h2{
+    background-color: rgb(221, 218, 218);
+}
+#login-signup-form{
+    width: 80%;
+    border: 2px black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Or a specific pixel width */
+}
+
+#taskItemTemplate{
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8; /* Light background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 30vh; /* Full viewport height for centering */
+    padding: 20px; /* Add some padding */
+}
+
+#createNew{
+    text-decoration: none;
+    border: 2px black;
+}
+#dashboardSearch{
+    font-family: 'Inter', sans-serif;
+    background-color: #95b5d6; /* Light background */
+    padding: 20px; /* Add some padding */
+}
