@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Custom font for better aesthetics, applied globally */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            /* Light background for the whole page */
+            margin: 0;
+            /* Remove default body margin */
+        }
+
+        /* Custom styling for the navbar to match the image's light blue-grey */
+        .navbar-custom {
+            background-color: #e0e7eb;
+            /* A light blue-grey */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+        }
+
+        /* Styling for the "Create New Task" button using Tailwind classes */
+        /* @apply is used here for demonstration, but you can put the classes directly on the button */
+        #nav-item {
+            background-color: rgb(234, 234, 231);
+            padding: 10px 10px;
+            border-radius: 5px;
+            margin: 10px 10px;
+        }
+
+        #nav-item-li {
+            border: 2px black;
+        }
+
+        #nav-item:hover {
+
+            background-color: rgb(212, 222, 133);
+            padding: 10px 10px;
+            border-radius: 5px;
+            margin: 10px 10px;
+        }
+
+        #nav-item-ul {
+            border: 2px black;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar-custom py-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+            <a id='intro' class="text-2xl font-bold text-gray-800 mb-4 md:mb-0" href="/frontend/public/index.html">Task
+                Management</a>
+
+            <nav id='nav-item' class="flex-grow flex justify-center md:justify-start">
+                <ul id='nav-item-ul' class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                    <li id="nav-item-li"><a
+                            class="text-gray-700 hover:text-blue-600 font-medium transition duration-150 ease-in-out"
+                            href="/frontend/public/index.html">Home</a></li>
+                    <li id="nav-item-li"><a
+                            class="text-gray-700 hover:text-blue-600 font-medium transition duration-150 ease-in-out"
+                            href="/frontend/public/index.html">Logout</a></li>
+                </ul>
+            </nav>
+
+            <form class="flex items-center space-x-2 w-full md:w-auto mt-4 md:mt-0">
+                <input type="search" placeholder="Search tasks..."
+                    class="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 ease-in-out text-gray-700">
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Search
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4">
+        <div id="homeMessage" class="text-center mb-8">
+            <div id="homeId" class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Task Management Tool</h2>
+                <p class="text-gray-600">Organize your tasks efficiently and stay productive!</p>
+            </div>
+        </div>
+
+        <div id="tasksContainer" class="flex flex-col items-center w-full">
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <button
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-sm transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                Delete Task
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // JavaScript logic to create and append task elements
+        // This is the same logic provided in previous immersives, now integrated.
+
+        // Get a reference to where you want to append tasks
+        const tasksContainer = document.getElementById('tasksContainer');
+
+        // Example task data (from your model)
+        const sampleTask = {
+            _id: '683a882a558a8e04d48a8906',
+            title: 'Dockerize the application',
+            description: 'Dockerize the backend api application and deploy on ec2',
+            isCompleted: true
+        };
+
+        const anotherTask = {
+            _id: 'anotherId123',
+            title: 'Write project report',
+            description: 'Complete the final project report for the Q2 review.',
+            isCompleted: false
+        };
+
+        function createTaskElement(task) {
+            const taskDiv = document.createElement('div');
+            // Apply Tailwind classes for styling the task card
+            taskDiv.className = 'w-full max-w-md bg-white rounded-lg shadow-md p-6 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between space-y-4 md:space-y-0 md:space-x-4';
+            taskDiv.setAttribute('data-task-id', task._id);
+
+            taskDiv.innerHTML = `
+                <div class="flex-grow">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${task.title}</h3>
+                    <p class="text-gray-600 text-sm mb-4">${task.description}</p>
+                    <span class="hidden">${task._id}</span>
+                </div>
+                <div class="flex flex-col items-end space-y-3">
+                    <label class="flex items-center cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-md transition duration-150 ease-in-out" ${task.isCompleted ? 'checked' : ''}>
+                        <span class="ml-2 text-gray-700 text-sm font-medium">Completed</span>
+                    </label>
+                    <button class="delete-task-btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md shadow-sm transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                        Delete Task
+                    </button>
+                </div>
+            `;
+
+            const checkbox = taskDiv.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', (event) => {
+                console.log(`Task "${task.title}" completion status changed to: ${event.target.checked}`);
+                // API call to update task status
+            });
+
+            const deleteButton = taskDiv.querySelector('.delete-task-btn');
+            deleteButton.addEventListener('click', () => {
+                console.log(`Delete task with ID: ${task._id}`);
+                // API call to delete task
+                taskDiv.remove();
+            });
+
+            return taskDiv;
+        }
+
+        // Append the sample tasks to the container
+        tasksContainer.appendChild(createTaskElement(sampleTask));
+        tasksContainer.appendChild(createTaskElement(anotherTask));
+
+        // Event listener for the "Create New Task" button
+        document.querySelector('.create-new-btn').addEventListener('click', () => {
+            console.log('Create New Task button clicked!');
+            const newTask = {
+                _id: `newTask_${Date.now()}`,
+                title: 'New Task Added!',
+                description: 'This task was added dynamically.',
+                isCompleted: false
+            };
+            tasksContainer.appendChild(createTaskElement(newTask));
+        });
+
+    </script>
+</body>
+
+</html>
